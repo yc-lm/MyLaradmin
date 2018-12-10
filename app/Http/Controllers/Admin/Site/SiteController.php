@@ -37,7 +37,7 @@ Class SiteController extends Controller
                 $this->siteRepositoryEloquent->insertSite($item);
             }
         }
-        return view('admin.site.site_list', compact('set_all','params'));
+        return view('admin.site.site.site_list', compact('set_all','params'));
     }
 
     /*

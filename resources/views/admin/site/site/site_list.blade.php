@@ -30,6 +30,13 @@
                             更新站点<i class="fa fa-edit"></i>
                         </button>
                     </div>
+
+                    <div class="btn-group" style="padding-left:10px;">
+                        <button class="btn green btn-outline">
+                            全国站点在线<i class="fa"></i>
+                        </button>
+                    </div>
+
                     <div class="actions search_btn">
                         <input type="text" name="site_name" placeholder="请输入站点名称" value="{{ isset($params['site_name'])?$params['site_name']:"" }}">
                         <button>搜索</button>
@@ -55,7 +62,8 @@
                                         <td title="{{$site_info['site_url']}}">{{ str_limit($site_info['site_url'],20,'...')}}</td>
                                         <td>{{$set->updated_at}}</td>
                                         <td>
-                                            <a href="">打开站点</a>
+                                            <a href="javascript:void(0)" style="color: #337AB7;padding-right: 5px;">跳转</a>
+                                            <a href="javascript:void(0)" style="color: #337AB7;">站点在线</a>
                                         </td>
                                     </tr>
                                 @endforeach
