@@ -77,6 +77,22 @@ class SiteRepositoryEloquent extends BaseRepository implements SiteRepository
         );
     }
 
+
+    public function updateSite($data){
+        if(empty($data)) return false;
+        foreach ($data as $item){
+            $find = ModelHelper::getModelObject($this->model())->where('site_unique_key',$item['site_url'])->first();
+            if($find){
+                $find->site_info = json_encode($item);
+                $find->type = $item['env'];
+                $find->updated_at = date('Y-m-d H:i:s',time());
+                $find->save();
+            }else{
+                $this->insertSite($item);
+            }
+        }
+        return true;
+    }
     /**
      * 清除原有用户组，加入新的用户组
      * @param $user_id int 用户ID

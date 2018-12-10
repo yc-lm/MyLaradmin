@@ -80,6 +80,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
 
     // 站点管理
     Route::get('site','Site\SiteController@index')->name('site.index');
+    Route::get('site/update_site','Site\SiteController@updateSite')->name('site.updateSite');
 });
 
 //

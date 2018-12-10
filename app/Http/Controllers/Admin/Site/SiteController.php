@@ -8,6 +8,7 @@
 namespace App\Http\Controllers\Admin\Site;
 
 use App\helpers\CommonHelper;
+use App\Models\Site;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Admin\Controller;
 use App\Repositories\Eloquent\SiteRepositoryEloquent;
@@ -37,6 +38,16 @@ Class SiteController extends Controller
             }
         }
         return view('admin.site.site_list', compact('set_all','params'));
+    }
+
+    /*
+     * 更新站点
+     */
+    public function updateSite(){
+        $url = Config::get('site-config')['api_url'];
+        $body = json_decode(CommonHelper::getMethod($url),true);
+        $res = $this->siteRepositoryEloquent->updateSite($body['result']);
+        return response()->json(['code'=>$res?1:0,'msg'=>$res?'更新成功！':'更新失败！']);
     }
 
     /*
