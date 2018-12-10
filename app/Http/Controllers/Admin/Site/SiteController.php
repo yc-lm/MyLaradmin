@@ -51,6 +51,21 @@ Class SiteController extends Controller
     }
 
     /*
+     * 站点在线
+     */
+    public function getSiteOnlineInfo(Request $request){
+        $site_ids = $request->get('site_id',[]);
+        $url = Config::get('site-config')['site_online_api_url'];
+        $site = Site::whereIn('id',$site_ids)->get();
+        $urls = [];
+        foreach ($site as $item){
+            array_push($urls,$item->site_unique_key.$url);
+        }
+        $res= CommonHelper::httpPool($urls);
+        return response()->json(['code'=>1,'msg'=>'操作成功！','data'=>$res]);
+    }
+
+    /*
      * 保存测试
      * */
     public function saveSet($id, Request $request)

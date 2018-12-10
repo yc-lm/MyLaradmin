@@ -81,7 +81,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
     // 站点管理
     Route::get('site','Site\SiteController@index')->name('site.index');
     Route::get('site/update_site','Site\SiteController@updateSite')->name('site.updateSite');
-
+    Route::post('site/get_site_online_info','Site\SiteController@getSiteOnlineInfo')->name('site.getSiteOnlineInfo');
     //站点配置管理
     Route::get('site_setting','Site\SiteSettingController@index')->name('site_setting.index');
 });
