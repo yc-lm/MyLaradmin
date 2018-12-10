@@ -79,7 +79,7 @@
         </div>
     </div>
     <div class="online_box  dis_none">
-        <div class="box_content" style="width: 360px;height: 500px;">
+        <div class="box_content" style="width: 360px;height: 400px;">
 
         </div>
     </div>
@@ -127,6 +127,7 @@
 
         //统计站点在线
         $(".site_online_info").unbind('click').bind('click',function(){
+
             var site_id = parseInt($(this).attr('data-id'));
             var arr = new Array();
             arr.push(site_id);
@@ -140,8 +141,33 @@
                 dataType:"json",
                 success:function(data){
                     console.log(data);
+
+                    var str = "";
+                    if(data.data.success.length>0){
+                        var result = data.data.success[0];
+                        console.log(result)
+                        var totalNumber = result.response.status.length;
+                        var onlineNumber = 0;
+                        var offLineNumber = 0;
+                        for(var i=0;i<totalNumber;i++){
+                            if(result.response.status[i] == '2'){
+                                offLineNumber +=1;
+                            }else if(result.response.status[i] == '1'){
+                                onlineNumber +=1;
+                            }
+                        }
+                        str += "<h3>当前站点："+result.name+"</h3>"
+                        str +="<ul><li><span>总数量：</span><span>"+totalNumber+"</span></li>";
+                        str +="<li><span>在线数量：</span><span>"+onlineNumber+"</span></li>";
+                        str +="<li><span>离线数量：</span><span>"+offLineNumber+"</span></li></ul>";
+
+
+                    }else{
+                        str +='统计失败！';
+                    }
+                    $(".online_box .box_content").empty();
+                    $(".online_box .box_content").append(str);
                     //自定页
-                    console.log($('.del_confirm')[0])
                     layer.open({
                         type: 1,
                         skin: '', //样式类名

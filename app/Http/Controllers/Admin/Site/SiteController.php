@@ -59,12 +59,16 @@ Class SiteController extends Controller
         $site = Site::whereIn('id',$site_ids)->get();
         $urls = [];
         foreach ($site as $item){
-            array_push($urls,$item->site_unique_key.$url);
+            $site_info = json_decode($item->site_info,true);
+            array_push($urls,['id'=>$item->id,'full_url'=>$item->site_unique_key.$url,'url'=>$item->site_unique_key,'site_name'=>$site_info['sitename']]);
         }
         $res= CommonHelper::httpPool($urls);
+
         return response()->json(['code'=>1,'msg'=>'操作成功！','data'=>$res]);
     }
-
+    
+    
+    
     /*
      * 保存测试
      * */
